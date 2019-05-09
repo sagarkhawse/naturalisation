@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "940874773466",
+    "firebase_url": "https://naturalisation-a6ca8.firebaseio.com",
+    "project_id": "naturalisation-a6ca8",
+    "storage_bucket": "naturalisation-a6ca8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940874773466:android:d5bbb1a8bbdb5480",
+        "android_client_info": {
+          "package_name": "com.theapp.naturalisation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940874773466-rkdpilqa85ho4sbl879l65ftidcciq2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theapp.naturalisation",
+            "certificate_hash": "9efd28eda6b34e54ea35bad5a461f7cb3bb750b5"
+          }
+        },
+        {
+          "client_id": "940874773466-fme5gl16aiqdfe1sapls8pvv3sn6o8au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjaX0jDWmyVrHN18azzKXdIOcc4FJ1qPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940874773466-fme5gl16aiqdfe1sapls8pvv3sn6o8au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
