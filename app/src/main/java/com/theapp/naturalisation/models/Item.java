@@ -5,6 +5,9 @@ public class Item {
     String response;
     String category;
 
+    public Item() {
+    }
+
     public String getQuestion() {
         return question;
     }
