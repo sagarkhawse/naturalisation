@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.QuestionsFragment">
 
-    <FrameLayout
-        android:id="@+id/recyclerLayout"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="60dp">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,6 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.ads.AdView;
@@ -31,7 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private boolean mIsExpanded;
 
     // The list of banner ads and menu items.
-    private final List<Object> recyclerViewItems;
+    private List<Object> recyclerViewItems;
 
 
     public RecyclerViewAdapter(Context context, List<Object> recyclerViewItems) {
@@ -58,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * Creates a new view for a menu item view or a banner ad view
      * based on the viewType. This method is invoked by the layout manager.
      */
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         switch (viewType) {
@@ -81,7 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * banner ad view. This method is invoked by the layout manager.
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         switch (viewType) {
             case MENU_ITEM_VIEW_TYPE:
@@ -105,7 +107,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 // fall through
             default:
                 AdItemViewHolder bannerHolder = (AdItemViewHolder) holder;
-//                if (recyclerViewItems.get(position) instanceof AdView) {
                 AdView adView = (AdView) recyclerViewItems.get(position);
                 ViewGroup adCardView = (ViewGroup) bannerHolder.itemView;
                 // The AdViewHolder recycled by the RecyclerView may be a different
@@ -123,7 +124,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 // Add the banner ad to the ad view.
                 adCardView.addView(adView);
         }
-//        }
+    }
+
+
+    // Clean all elements of the recycler
+    public void clear() {
+        recyclerViewItems.clear();
+        notifyDataSetChanged();
     }
 
 }
