@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -34,13 +35,17 @@ public class QuestionsFragment extends Fragment {
 
     @BindView(R.id.items_list)
     RecyclerView mItemsList;
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
 
     // A banner ad is placed in every 8th position in the RecyclerView.
     public static final int ITEMS_PER_AD = 10;
 
     private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
 
-    List<Object> list = new ArrayList<>();
+    private List<Object> list = new ArrayList<>();
+
+    private RecyclerViewAdapter adapter;
 
     public QuestionsFragment() {
         // Required empty public constructor
@@ -61,19 +66,19 @@ public class QuestionsFragment extends Fragment {
         mItemsList.setHasFixedSize(true);
 
         addItemsFromFirestore();
-        try {
-            // Sleep for 200 milliseconds.
-//                    addItemsFromFirestore();
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Sleep for 200 milliseconds.
+////                    addItemsFromFirestore();
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
-//        addBannerAds();
-//        loadBannerAds();
+        swipeContainer.setOnRefreshListener(this::addItemsFromFirestore);
 
-        RecyclerView.Adapter<RecyclerView.ViewHolder> adapter = new RecyclerViewAdapter(getContext(),
-                list);
+        swipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
+
+        adapter = new RecyclerViewAdapter(getContext(), list);
         mItemsList.setAdapter(adapter);
 
         return fragmentView;
@@ -146,16 +151,20 @@ public class QuestionsFragment extends Fragment {
 
         queryFirestore.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                // Remember to CLEAR OUT old items before appending in the new ones
+                adapter.clear();
+
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     list.add(document.toObject(Item.class));
                 }
                 addBannerAds();
                 loadBannerAds();
+
+                swipeContainer.setRefreshing(false);
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
-
     }
 
     @Override
