@@ -39,7 +39,7 @@ public class QuestionsFragment extends Fragment {
     SwipeRefreshLayout swipeContainer;
 
     // A banner ad is placed in every 8th position in the RecyclerView.
-    public static final int ITEMS_PER_AD = 10;
+    public static final int ITEMS_PER_AD = 8;
 
     private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
 
@@ -157,8 +157,12 @@ public class QuestionsFragment extends Fragment {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     list.add(document.toObject(Item.class));
                 }
-                addBannerAds();
-                loadBannerAds();
+                try {
+                    addBannerAds();
+                    loadBannerAds();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error adding banner ads to recycler view !", e);
+                }
 
                 swipeContainer.setRefreshing(false);
             } else {

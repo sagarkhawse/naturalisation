@@ -17,7 +17,7 @@ public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.item_category)
     TextView itemCategory;
     @BindView(R.id.item_question)
-    TextView itemQuestion;
+    public TextView itemQuestion;
     @BindView(R.id.item_response)
     public TextView itemResponse;
     @BindView(R.id.button_response)

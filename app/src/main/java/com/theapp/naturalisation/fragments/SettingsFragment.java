@@ -21,8 +21,8 @@ import butterknife.ButterKnife;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
-    @BindView(R.id.button_add_question)
-    MaterialButton mButtonAddQuestion;
+//    @BindView(R.id.button_add_question)
+//    MaterialButton mButtonAddQuestion;
     @BindView(R.id.button_exit)
     MaterialButton mButtonExit;
 
@@ -50,7 +50,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         ButterKnife.bind(this, view);
 
-        mButtonAddQuestion.setOnClickListener(this);
+//        mButtonAddQuestion.setOnClickListener(this);
         mButtonExit.setOnClickListener(this);
 
         return view;
@@ -58,11 +58,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == mButtonAddQuestion) {
-            FullScreenDialog dialog = new FullScreenDialog();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            dialog.show(ft, "DIALOG");
-        }
+//        if (v == mButtonAddQuestion) {
+//            FullScreenDialog dialog = new FullScreenDialog();
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            dialog.show(ft, "DIALOG");
+//        }
 
         if (v == mButtonExit) {
             getActivity().finish();

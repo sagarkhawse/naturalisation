@@ -90,10 +90,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 QuestionsItemViewHolder itemHolder = (QuestionsItemViewHolder) holder;
                 Item menuItem = (Item) recyclerViewItems.get(position);
 
-                // Get the menu item image resource ID.
                 itemHolder.setItemCategory(CategorySelector.getName(menuItem.getCategory()));
                 itemHolder.setItemQuestion(menuItem.getQuestion());
                 itemHolder.setItemResponse(CommonTools.formatResponse(menuItem.getResponse()));
+
+                itemHolder.itemQuestion.setOnClickListener(v -> {
+                    mIsExpanded = !mIsExpanded;
+                    itemHolder.mButtonResponse.setImageResource(!mIsExpanded ? R.drawable.ic_keyboard_arrow_down_black_24dp : R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    itemHolder.itemResponse.setVisibility(mIsExpanded ? View.VISIBLE : View.GONE);
+                });
 
                 itemHolder.itemResponse.setVisibility(mIsExpanded ? View.VISIBLE : View.GONE);
                 itemHolder.itemView.setActivated(mIsExpanded);
