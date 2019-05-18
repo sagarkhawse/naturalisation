@@ -4,8 +4,15 @@
 
     <!-- Settings, should always be in the overflow -->
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/settings_full"
+        android:title="Naturalisation Française Full"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings_terms"
         android:title="Termes et Conditions"
         app:showAsAction="never" />
+
+
 
 </menu>

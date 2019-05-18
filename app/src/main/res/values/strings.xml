@@ -2,7 +2,7 @@
     <string name="app_name">Naturalisation Française</string>
     <string name="title_questions">Questions</string>
     <string name="title_documents">Documents</string>
-    <string name="title_settings">Paramètres</string>
+    <string name="title_settings">Plus</string>
 
     <string name="category_prompt">Choisissez la catégorie de la question</string>
 

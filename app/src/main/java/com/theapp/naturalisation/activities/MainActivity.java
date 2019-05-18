@@ -13,13 +13,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.fragments.DocumentsFragment;
 import com.theapp.naturalisation.fragments.QuestionsFragment;
 import com.theapp.naturalisation.fragments.SettingsFragment;
+import com.theapp.naturalisation.helpers.CommonTools;
 
 public class MainActivity extends AppCompatActivity {
+
     private Fragment mSelectedFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -35,9 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        if (CommonTools.isFullVersion()) {
+            getSupportActionBar().setTitle("Naturalisation Française Full");
+        } else {
+            getSupportActionBar().setTitle("Naturalisation Française Lite");
+        }
+
         navView.setSelectedItemId(R.id.navigation_questions); // set first menu item at "new wish"
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 
         // instantiate the first shown fragment
         Fragment fragmentByTag = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
@@ -131,13 +140,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.settings_terms:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Intent termsIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://docs.google.com/document/d/e/2PACX-1vTHUThxL3g4AsJO2aFALoYaAoBbvBRVzqSkQi9MT1_78pr_5jBtOzGmXVLSh0mXCjf0B8tkglApy1aJ/pub"));
-                startActivity(browserIntent);
-
-//                return true;
+                startActivity(termsIntent);
+            case R.id.settings_full:
+                if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SERVICE_MISSING) { // Checks that Google Play is available
+                    Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full"));
+                    startActivity(fullVersionIntent);
+                } else {
+                    Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW);
+                    fullVersionIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full"));
+                    fullVersionIntent.setPackage("com.android.vending");
+                    startActivity(fullVersionIntent);
+                }
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -145,6 +162,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 
 }

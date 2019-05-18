@@ -22,6 +22,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.theapp.naturalisation.BuildConfig;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.models.Item;
 
@@ -50,7 +51,6 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
     private String category;
     private InterstitialAd mInterstitialAd;
 
-
     public FullScreenDialog() {
     }
 
@@ -75,7 +75,12 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
 
         mInterstitialAd = new InterstitialAd(getContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-8438644666105561/7156175061");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        if (CommonTools.isDebug()) {
+            mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+        } else {
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
 
         mSpinner.setOnItemSelectedListener(this);
         mButtonPostQuestion.setOnClickListener(this);
@@ -194,12 +199,13 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
     private void loadAd(View view) {
         AdView mAdView;
         mAdView = view.findViewById(R.id.adView_add_question);
-//        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        // TODO use this line below in production
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
 
+        if (CommonTools.isDebug()) {
+            mAdView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+        } else {
+            mAdView.loadAd(new AdRequest.Builder().build());
+        }
+    }
 
     private class GenericTextWatcher implements TextWatcher {
 

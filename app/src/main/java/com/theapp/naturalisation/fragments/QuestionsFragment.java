@@ -20,6 +20,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.RecyclerViewAdapter;
+import com.theapp.naturalisation.helpers.CommonTools;
 import com.theapp.naturalisation.helpers.ItemHelper;
 import com.theapp.naturalisation.models.Item;
 
@@ -40,6 +41,7 @@ public class QuestionsFragment extends Fragment {
 
     // A banner ad is placed in every 8th position in the RecyclerView.
     public static final int ITEMS_PER_AD = 8;
+    public static final int MAX_ITEMS_LITE_VERSION = 25;
 
     private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
 
@@ -57,8 +59,7 @@ public class QuestionsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_questions, container, false);
         ButterKnife.bind(this, fragmentView);
 
@@ -66,13 +67,6 @@ public class QuestionsFragment extends Fragment {
         mItemsList.setHasFixedSize(true);
 
         addItemsFromFirestore();
-//        try {
-//            // Sleep for 200 milliseconds.
-////                    addItemsFromFirestore();
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
 
         swipeContainer.setOnRefreshListener(this::addItemsFromFirestore);
 
@@ -104,8 +98,7 @@ public class QuestionsFragment extends Fragment {
 
         Object item = list.get(index);
         if (!(item instanceof AdView)) {
-            throw new ClassCastException("Expected item at index " + index + " to be a banner ad"
-                    + " ad.");
+            throw new ClassCastException("Expected item at index " + index + " to be a banner ad" + " ad.");
         }
 
         final AdView adView = (AdView) item;
@@ -132,7 +125,11 @@ public class QuestionsFragment extends Fragment {
         });
 
         // Load the banner ad.
-        adView.loadAd(new AdRequest.Builder().build());
+        if (CommonTools.isDebug()) {
+            adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+        } else {
+            adView.loadAd(new AdRequest.Builder().build());
+        }
     }
 
     private void addBannerAds() {
@@ -154,7 +151,11 @@ public class QuestionsFragment extends Fragment {
                 // Remember to CLEAR OUT old items before appending in the new ones
                 adapter.clear();
 
+                int counter = 0;
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (CommonTools.isLiteVersion() && counter++ == MAX_ITEMS_LITE_VERSION) {
+                        break;
+                    }
                     list.add(document.toObject(Item.class));
                 }
                 try {
