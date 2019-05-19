@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        if (CommonTools.isFullVersion()) {
-            getSupportActionBar().setTitle("Naturalisation Française Full");
-        } else {
+        if (CommonTools.isLiteVersion()) {
             getSupportActionBar().setTitle("Naturalisation Française Lite");
+        } else if (CommonTools.isFullVersion()) {
+            getSupportActionBar().setTitle("Naturalisation Française Pro");
         }
 
-        navView.setSelectedItemId(R.id.navigation_questions); // set first menu item at "new wish"
+        navView.setSelectedItemId(R.id.navigation_questions);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // instantiate the first shown fragment

@@ -5,7 +5,7 @@
     <!-- Settings, should always be in the overflow -->
     <item
         android:id="@+id/settings_full"
-        android:title="Naturalisation Française Full"
+        android:title="Naturalisation Française Pro"
         app:showAsAction="never" />
 
     <item

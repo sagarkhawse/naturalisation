@@ -7,19 +7,14 @@ android {
         applicationId "com.theapp.naturalisation"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
+        versionCode 11
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            ext.enableCrashlytics = false
         }
     }
     compileOptions {
@@ -31,11 +26,13 @@ android {
         lite {
             dimension "version"
             versionNameSuffix "-lite"
+            resValue "string", "flavored_app_name", "Naturalisation Française Lite"
         }
         full {
             dimension "version"
             applicationIdSuffix ".full"
             versionNameSuffix "-full"
+            resValue "string", "flavored_app_name", "Naturalisation Française Pro"
         }
     }
 }

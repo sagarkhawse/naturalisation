@@ -53,6 +53,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "940874773466-vu2gm1ahe9gvptt6hiftrsqj43fe59sq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theapp.naturalisation.full",
+            "certificate_hash": "9efd28eda6b34e54ea35bad5a461f7cb3bb750b5"
+          }
+        },
+        {
           "client_id": "940874773466-fme5gl16aiqdfe1sapls8pvv3sn6o8au.apps.googleusercontent.com",
           "client_type": 3
         }

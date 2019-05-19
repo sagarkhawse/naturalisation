@@ -41,7 +41,7 @@ public class QuestionsFragment extends Fragment {
 
     // A banner ad is placed in every 8th position in the RecyclerView.
     public static final int ITEMS_PER_AD = 8;
-    public static final int MAX_ITEMS_LITE_VERSION = 25;
+    private static final int MAX_ITEMS_LITE_VERSION = 25;
 
     private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
 

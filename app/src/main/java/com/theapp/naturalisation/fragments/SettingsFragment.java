@@ -55,7 +55,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 dialog.show(ft, "DIALOG");
             } else {
-                Toast.makeText(getContext(), "Passez à la version Full pour pouvoir rajouter vos questions !", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Passez à la version Pro pour pouvoir rajouter vos questions !", Toast.LENGTH_LONG).show();
             }
         }
 
