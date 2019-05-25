@@ -26,6 +26,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.button_exit)
     MaterialButton mButtonExit;
 
+    private static final String TAG = "SettingsFragment";
+
     public SettingsFragment() {
         // Required empty public constructor
     }

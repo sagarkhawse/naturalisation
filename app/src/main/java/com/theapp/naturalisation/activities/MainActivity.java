@@ -24,6 +24,8 @@ import com.theapp.naturalisation.helpers.CommonTools;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private Fragment mSelectedFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -134,6 +136,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        if (CommonTools.isFullVersion()) {
+            MenuItem item = menu.findItem(R.id.settings_full);
+            item.setVisible(false);
+        }
         return true;
     }
 

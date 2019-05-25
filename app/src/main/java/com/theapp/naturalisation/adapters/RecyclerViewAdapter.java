@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @Override
     public int getItemViewType(int position) {
-        return (position % QuestionsFragment.ITEMS_PER_AD == 0) ? BANNER_AD_VIEW_TYPE
+        return (position % QuestionsFragment.getItemsPerAd() == 0) ? BANNER_AD_VIEW_TYPE
                 : MENU_ITEM_VIEW_TYPE;
     }
 

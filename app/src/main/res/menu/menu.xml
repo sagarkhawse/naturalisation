@@ -7,12 +7,9 @@
         android:id="@+id/settings_full"
         android:title="Naturalisation Française Pro"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/settings_terms"
         android:title="Termes et Conditions"
         app:showAsAction="never" />
-
-
 
 </menu>

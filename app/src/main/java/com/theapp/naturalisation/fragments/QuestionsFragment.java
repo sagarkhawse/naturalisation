@@ -16,8 +16,11 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.RecyclerViewAdapter;
 import com.theapp.naturalisation.helpers.CommonTools;
@@ -25,12 +28,11 @@ import com.theapp.naturalisation.helpers.ItemHelper;
 import com.theapp.naturalisation.models.Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class QuestionsFragment extends Fragment {
 
@@ -38,16 +40,24 @@ public class QuestionsFragment extends Fragment {
     RecyclerView mItemsList;
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.floatingActionButton)
+    FloatingActionButton floatingActionButton;
 
-    // A banner ad is placed in every 8th position in the RecyclerView.
-    public static final int ITEMS_PER_AD = 8;
-    private static final int MAX_ITEMS_LITE_VERSION = 25;
+    private static final String TAG = "QuestionsFragment";
+
+    // Remote Config keys
+    private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
+    private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
 
     private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
 
     private List<Object> list = new ArrayList<>();
 
     private RecyclerViewAdapter adapter;
+
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+
+    private static int itemsPerAd;
 
     public QuestionsFragment() {
         // Required empty public constructor
@@ -66,16 +76,42 @@ public class QuestionsFragment extends Fragment {
         mItemsList.setLayoutManager(new LinearLayoutManager(getContext()));
         mItemsList.setHasFixedSize(true);
 
-        addItemsFromFirestore();
-
         swipeContainer.setOnRefreshListener(this::addItemsFromFirestore);
-
         swipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
+
+        floatingActionButton.setOnClickListener(v -> mItemsList.smoothScrollToPosition(0));
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setFetchTimeoutInSeconds(2)
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
+
+        fetchRemoteConfigAndAddItems();
 
         adapter = new RecyclerViewAdapter(getContext(), list);
         mItemsList.setAdapter(adapter);
 
         return fragmentView;
+    }
+
+    private void fetchRemoteConfigAndAddItems() {
+
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        boolean updated = task.getResult();
+                        Log.d(TAG, "Config params updated: " + updated);
+                    } else {
+                        Log.d(TAG, "Fetch config params failed !");
+                    }
+
+                    addItemsFromFirestore();
+                });
     }
 
     /**
@@ -111,16 +147,16 @@ public class QuestionsFragment extends Fragment {
                 super.onAdLoaded();
                 // The previous banner ad loaded successfully, call this method again to
                 // load the next ad in the items list.
-                loadBannerAd(index + ITEMS_PER_AD);
+                loadBannerAd(index + itemsPerAd);
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 // The previous banner ad failed to load. Call this method again to load
                 // the next ad in the items list.
-                Log.e("MainActivity", "The previous banner ad failed to load. Attempting to"
+                Log.e(TAG, "The previous banner ad failed to load. Attempting to"
                         + " load the next banner ad in the items list.");
-                loadBannerAd(index + ITEMS_PER_AD);
+                loadBannerAd(index + itemsPerAd);
             }
         });
 
@@ -135,7 +171,8 @@ public class QuestionsFragment extends Fragment {
     private void addBannerAds() {
         // Loop through the items array and place a new banner ad in every ith position in
         // the items List.
-        for (int i = 0; i <= list.size(); i += ITEMS_PER_AD) {
+        itemsPerAd = (int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY);
+        for (int i = 0; i <= list.size(); i += itemsPerAd) {
             final AdView adView = new AdView(getContext());
             adView.setAdSize(AdSize.BANNER);
             adView.setAdUnitId(AD_UNIT_ID);
@@ -151,14 +188,15 @@ public class QuestionsFragment extends Fragment {
                 // Remember to CLEAR OUT old items before appending in the new ones
                 adapter.clear();
 
-                int counter = 0;
+                long counter = 0;
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    if (CommonTools.isLiteVersion() && counter++ == MAX_ITEMS_LITE_VERSION) {
+                    if (CommonTools.isLiteVersion() && counter++ == mFirebaseRemoteConfig.getLong(MAX_ITEMS_LITE_VERSION_CONFIG_KEY)) {
                         break;
                     }
                     list.add(document.toObject(Item.class));
                 }
                 try {
+                    Collections.shuffle(list);
                     addBannerAds();
                     loadBannerAds();
                 } catch (Exception e) {
@@ -213,6 +251,10 @@ public class QuestionsFragment extends Fragment {
             }
         }
         super.onDestroy();
+    }
+
+    public static int getItemsPerAd() {
+        return itemsPerAd;
     }
 
 }

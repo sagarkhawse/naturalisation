@@ -1,12 +1,16 @@
 package com.theapp.naturalisation.fragments;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -57,6 +61,10 @@ public class DocumentsFragment extends Fragment {
     CheckBox checkBox19;
     @BindView(R.id.checkBox20)
     CheckBox checkBox20;
+    @BindView(R.id.linkToOriginalDocuments)
+    TextView linkToOriginalDocuments;
+
+    private static final String TAG = "DocumentsFragment";
 
     public DocumentsFragment() {
         // Required empty public constructor
@@ -140,6 +148,16 @@ public class DocumentsFragment extends Fragment {
         boolean checked20 = PreferenceManager.getDefaultSharedPreferences(getContext())
                 .getBoolean("checkBox20", false);
         checkBox20.setChecked(checked20);
+        linkToOriginalDocuments.setClickable(true);
+        linkToOriginalDocuments.setMovementMethod(LinkMovementMethod.getInstance());
+        linkToOriginalDocuments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse("https://www.service-public.fr/particuliers/vosdroits/F2213"));
+                startActivity(browserIntent);
+            }
+        });
     }
 
 

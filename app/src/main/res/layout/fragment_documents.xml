@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:id="@+id/documentsLayout"
@@ -234,6 +235,26 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/colorPrimaryDark"
             android:text="Test d'évaluation du français (TEF) de la chambre de commerce et d'industrie de Paris (CCIP)" />
+
+        <View
+            android:id="@+id/divider_link"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/linkToOriginalDocuments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:autoLink="web"
+            android:text="Lien vers la liste originale des documents." />
 
         <Space
             android:layout_width="match_parent"
