@@ -2,40 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settingsLayout"
+    android:id="@+id/plusLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="bottom"
     android:background="@android:color/white"
-    tools:context=".fragments.SettingsFragment">
+    tools:context=".fragments.PlusFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_add_question"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:padding="12dp"
-        android:text="Rajouter une question"
+        android:text="@string/add_a_question"
+        app:icon="@drawable/ic_add_black_24dp"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_exit"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:id="@+id/button_facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:backgroundTint="@color/colorPrimary"
         android:padding="12dp"
-        android:text="Quitter"
+        android:text="@string/facebook_page"
         android:textColor="@color/colorAccent"
+        app:icon="@drawable/ic_facebook_app_symbol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_add_question" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="12dp"
+        android:text="@string/exit"
+        android:textColor="@color/colorAccent"
+        app:icon="@drawable/ic_exit_to_app_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_facebook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

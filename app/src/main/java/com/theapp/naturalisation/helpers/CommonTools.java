@@ -7,6 +7,8 @@ public class CommonTools {
     private static final String LITE = "lite";
     private static final String FULL = "full";
     private static final String DEBUG = "debug";
+    private static final String SEPARATOR = " - ";
+    private static final String REPLACEMENT = "\n- ";
 
     public static boolean isEmpty(String string) {
         return string == null || string.length() == 0;
@@ -17,7 +19,7 @@ public class CommonTools {
     }
 
     public static String formatResponse(String response) {
-        return response.replaceAll(" - ", "\n- ");
+        return response.replaceAll(SEPARATOR, REPLACEMENT);
     }
 
     public static boolean isFullVersion() {

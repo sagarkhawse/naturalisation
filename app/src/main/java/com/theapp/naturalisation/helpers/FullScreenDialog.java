@@ -22,7 +22,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.theapp.naturalisation.BuildConfig;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.models.Item;
 
@@ -37,6 +36,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
     private static final String HISTORY = "Histoire";
     private static final String PERSONAL = "Personnel";
     private static final String REPUBLIC = "République";
+    private static final String GENERAL = "Général";
 
     @BindView(R.id.category_spinner)
     Spinner mSpinner;
@@ -88,7 +88,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
         Toolbar toolbar = view.findViewById(R.id.dialog_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setNavigationOnClickListener(v -> dismiss());
-        toolbar.setTitle("Votre Question");
+        toolbar.setTitle(getResources().getString(R.string.your_question));
 
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -150,6 +150,8 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
             case PERSONAL:
                 category = "perso";
                 break;
+            case GENERAL:
+                category = "general";
             default:
                 category = "perso";
                 break;
@@ -175,6 +177,8 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
                 mInterstitialAd.show();
             } else {
                 Log.d("TAG", "The interstitial wasn't loaded yet.");
+                mQuestion.getText().clear();
+                mResponse.getText().clear();
             }
         }
     }

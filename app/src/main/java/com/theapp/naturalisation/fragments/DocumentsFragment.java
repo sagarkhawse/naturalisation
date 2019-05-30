@@ -150,13 +150,10 @@ public class DocumentsFragment extends Fragment {
         checkBox20.setChecked(checked20);
         linkToOriginalDocuments.setClickable(true);
         linkToOriginalDocuments.setMovementMethod(LinkMovementMethod.getInstance());
-        linkToOriginalDocuments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-                browserIntent.setData(Uri.parse("https://www.service-public.fr/particuliers/vosdroits/F2213"));
-                startActivity(browserIntent);
-            }
+        linkToOriginalDocuments.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+            browserIntent.setData(Uri.parse("https://www.service-public.fr/particuliers/vosdroits/F2213"));
+            startActivity(browserIntent);
         });
     }
 

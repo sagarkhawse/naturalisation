@@ -3,6 +3,7 @@ package com.theapp.naturalisation.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,9 +19,10 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.fragments.DocumentsFragment;
+import com.theapp.naturalisation.fragments.PlusFragment;
 import com.theapp.naturalisation.fragments.QuestionsFragment;
-import com.theapp.naturalisation.fragments.SettingsFragment;
 import com.theapp.naturalisation.helpers.CommonTools;
+import com.theapp.naturalisation.helpers.LocaleHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,24 +40,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleHelper.setLocale(MainActivity.this, PreferenceManager.getDefaultSharedPreferences(MainActivity.this)
+                .getString("ui_language", LocaleHelper.FRENCH_LABEL));
+
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         if (CommonTools.isLiteVersion()) {
-            getSupportActionBar().setTitle("Naturalisation Française Lite");
+            getSupportActionBar().setTitle(getResources().getString(R.string.action_bar_title_lite));
         } else if (CommonTools.isFullVersion()) {
-            getSupportActionBar().setTitle("Naturalisation Française Pro");
+            getSupportActionBar().setTitle(getResources().getString(R.string.action_bar_title_pro));
         }
 
         navView.setSelectedItemId(R.id.navigation_questions);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // instantiate the first shown fragment
-        Fragment fragmentByTag = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
-        replaceFragment(fragmentByTag, QuestionsFragment.class.getName());
+        if (savedInstanceState == null) {
+            Fragment fragmentByTag = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
+            replaceFragment(fragmentByTag, QuestionsFragment.class.getName());
+        }
     }
 
+
     private Fragment getOrCreate(int navigationId) {
+
         // try to get it
         Fragment selected;
         switch (navigationId) {
@@ -66,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 selected = findFragmentByTagOtherwiseCreate(DocumentsFragment.class);
                 break;
             case R.id.navigation_settings:
-                selected = findFragmentByTagOtherwiseCreate(SettingsFragment.class);
+                selected = findFragmentByTagOtherwiseCreate(PlusFragment.class);
                 break;
             default:
                 selected = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
@@ -137,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         if (CommonTools.isFullVersion()) {
-            MenuItem item = menu.findItem(R.id.settings_full);
+            MenuItem item = menu.findItem(R.id.menu_get_full);
             item.setVisible(false);
         }
         return true;
@@ -146,12 +156,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.settings_terms:
+            case R.id.menu_terms:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent termsIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://docs.google.com/document/d/e/2PACX-1vTHUThxL3g4AsJO2aFALoYaAoBbvBRVzqSkQi9MT1_78pr_5jBtOzGmXVLSh0mXCjf0B8tkglApy1aJ/pub"));
                 startActivity(termsIntent);
-            case R.id.settings_full:
+                break;
+            case R.id.menu_settings:
+                if (LocaleHelper.getLanguage(MainActivity.this).equals(LocaleHelper.FRENCH_LABEL)) {
+                    LocaleHelper.setLocale(MainActivity.this, LocaleHelper.ENGLISH_LABLE);
+                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
+                            .putString("ui_language", LocaleHelper.ENGLISH_LABLE).apply();
+                } else {
+                    LocaleHelper.setLocale(MainActivity.this, LocaleHelper.FRENCH_LABEL);
+                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
+                            .putString("ui_language", LocaleHelper.FRENCH_LABEL).apply();
+                }
+//                recreate();
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.menu_get_full:
                 if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SERVICE_MISSING) { // Checks that Google Play is available
                     Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full"));
                     startActivity(fullVersionIntent);
@@ -161,12 +186,12 @@ public class MainActivity extends AppCompatActivity {
                     fullVersionIntent.setPackage("com.android.vending");
                     startActivity(fullVersionIntent);
                 }
+                break;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
+        return true;
     }
-
 }

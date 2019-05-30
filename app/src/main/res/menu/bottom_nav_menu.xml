@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_questions"
         android:icon="@drawable/ic_bubble_chart_black_24dp"
-        android:title="@string/title_questions" />
+        android:title="@string/menu_questions" />
 
     <item
         android:id="@+id/navigation_documents"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_documents" />
+        android:title="@string/menu_documents" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_all_inclusive_black_24dp"
-        android:title="@string/title_settings" />
+        android:title="@string/menu_plus" />
 
 </menu>
