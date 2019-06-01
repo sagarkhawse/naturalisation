@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_questions">Questions</string>
+    <string name="menu_documents">Documents</string>
+    <string name="menu_plus">More</string>
+
+    <string name="category_prompt">Choose the question\'s category</string>
+
+    <string-array name="categories_array">
+        <item>Personal</item>
+        <item>Republic</item>
+        <item>History</item>
+        <item>Culture</item>
+    </string-array>
+    <string name="menu_language">French Version</string>
+    <string name="naturalisation_francaise_pro">French Citizenship Pro</string>
+    <string name="termes_et_conditions">Terms &amp; Conditions</string>
+    <string name="action_bar_title_lite">French Citizenship Lite</string>
+    <string name="action_bar_title_pro">French Citizenship Pro</string>
+    <string name="toast_get_pro_version">Upgrade to the Pro version to add your questions!</string>
+    <string name="question">Question</string>
+    <string name="response">Response</string>
+    <string name="submit">Submit</string>
+    <string name="add_a_question">Add a Question</string>
+    <string name="facebook_page">Facebook Page</string>
+    <string name="exit">Exit</string>
+    <string name="your_question">Your Question</string>
+
+</resources>

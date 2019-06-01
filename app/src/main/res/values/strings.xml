@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Naturalisation Française</string>
-    <string name="title_questions">Questions</string>
-    <string name="title_documents">Documents</string>
-    <string name="title_settings">Plus</string>
+    <string name="app_name" translatable="false">Naturalisation Française</string>
+    <string name="menu_questions">Questions</string>
+    <string name="menu_documents">Documents</string>
+    <string name="menu_plus">Plus</string>
 
     <string name="category_prompt">Choisissez la catégorie de la question</string>
 
@@ -10,5 +11,20 @@
         <item>Personnel</item>
         <item>République</item>
         <item>Histoire</item>
+        <item>Culture Générale</item>
     </string-array>
+    <string name="menu_language">Version Anglaise</string>
+    <string name="naturalisation_francaise_pro">Naturalisation Française Pro</string>
+    <string name="termes_et_conditions">Termes &amp; Conditions</string>
+    <string name="action_bar_title_lite">Naturalisation Française Lite</string>
+    <string name="action_bar_title_pro">Naturalisation Française Pro</string>
+    <string name="toast_get_pro_version">Passez à la version Pro pour pouvoir rajouter vos questions !</string>
+    <string name="question">Question</string>
+    <string name="response">Réponse</string>
+    <string name="submit">Soumettre</string>
+    <string name="add_a_question">Rajouter une question</string>
+    <string name="facebook_page">Page Facebook</string>
+    <string name="exit">Quitter</string>
+    <string name="your_question">Votre Question</string>
+
 </resources>
