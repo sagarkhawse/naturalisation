@@ -1,9 +1,9 @@
 package com.theapp.naturalisation.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocaleHelper.setLocale(MainActivity.this, PreferenceManager.getDefaultSharedPreferences(MainActivity.this)
-                .getString("ui_language", LocaleHelper.FRENCH_LABEL));
-
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -62,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(fragmentByTag, QuestionsFragment.class.getName());
         }
     }
-
 
     private Fragment getOrCreate(int navigationId) {
 
@@ -162,17 +158,12 @@ public class MainActivity extends AppCompatActivity {
                         Uri.parse("https://docs.google.com/document/d/e/2PACX-1vTHUThxL3g4AsJO2aFALoYaAoBbvBRVzqSkQi9MT1_78pr_5jBtOzGmXVLSh0mXCjf0B8tkglApy1aJ/pub"));
                 startActivity(termsIntent);
                 break;
-            case R.id.menu_settings:
+            case R.id.menu_language:
                 if (LocaleHelper.getLanguage(MainActivity.this).equals(LocaleHelper.FRENCH_LABEL)) {
                     LocaleHelper.setLocale(MainActivity.this, LocaleHelper.ENGLISH_LABLE);
-                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
-                            .putString("ui_language", LocaleHelper.ENGLISH_LABLE).apply();
                 } else {
                     LocaleHelper.setLocale(MainActivity.this, LocaleHelper.FRENCH_LABEL);
-                    PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit()
-                            .putString("ui_language", LocaleHelper.FRENCH_LABEL).apply();
                 }
-//                recreate();
                 finish();
                 startActivity(getIntent());
                 break;
@@ -193,5 +184,10 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base, "fr"));
     }
 }
