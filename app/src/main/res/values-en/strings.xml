@@ -21,9 +21,18 @@
     <string name="question">Question</string>
     <string name="response">Response</string>
     <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
     <string name="add_a_question">Add a Question</string>
+    <string name="rate_app">Rate the App !</string>
     <string name="facebook_page">Facebook Page</string>
     <string name="exit">Exit</string>
     <string name="your_question">Your Question</string>
+
+    <!-- Rating dialog -->
+    <string name="rating_title">Would you mind rating French Citizenship App?</string>
+    <string name="rating_later">Maybe later :)</string>
+    <string name="rating_feedback">Your feedback</string>
+    <string name="rating_hint">We appreciate telling us where we can improve</string>
+    <string name="rating_no">No, thanks :)</string>
 
 </resources>

@@ -14,15 +14,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theapp.naturalisation.R;
-import com.theapp.naturalisation.fragments.DocumentsFragment;
+import com.theapp.naturalisation.fragments.DocumentsDecreeFragment;
 import com.theapp.naturalisation.fragments.PlusFragment;
 import com.theapp.naturalisation.fragments.QuestionsFragment;
 import com.theapp.naturalisation.helpers.CommonTools;
 import com.theapp.naturalisation.helpers.LocaleHelper;
+
+import static com.theapp.naturalisation.helpers.CommonTools.FULL_VERSION;
+import static com.theapp.naturalisation.helpers.CommonTools.LITE_VERSION;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +63,37 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragmentByTag = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
             replaceFragment(fragmentByTag, QuestionsFragment.class.getName());
         }
+
+        buildSmartRatingDilaog();
+    }
+
+    private void buildSmartRatingDilaog() {
+        String url = LITE_VERSION;
+
+        if (CommonTools.isFullVersion()) {
+            url = FULL_VERSION;
+        }
+
+        final RatingDialog ratingDialog = new RatingDialog.Builder(this)
+                .session(7)
+                .threshold(3)
+                .title(getResources().getString(R.string.rating_title))
+                .ratingBarBackgroundColor(R.color.grey_500)
+                .positiveButtonText(getResources().getString(R.string.rating_later))
+                .negativeButtonText(getResources().getString(R.string.rating_no))
+                .positiveButtonTextColor(R.color.white)
+                .negativeButtonTextColor(R.color.white)
+                .negativeButtonBackgroundColor(R.color.grey_400)
+                .positiveButtonBackgroundColor(R.color.grey_400)
+                .formTitle(getResources().getString(R.string.rating_feedback))
+                .formHint(getResources().getString(R.string.rating_hint))
+                .formSubmitText(getResources().getString(R.string.submit))
+                .formCancelText(getResources().getString(R.string.cancel))
+                .ratingBarColor(R.color.colorPrimaryDark)
+                .playstoreUrl(url)
+                .build();
+
+        ratingDialog.show();
     }
 
     private Fragment getOrCreate(int navigationId) {
@@ -70,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 selected = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
                 break;
             case R.id.navigation_documents:
-                selected = findFragmentByTagOtherwiseCreate(DocumentsFragment.class);
+                selected = findFragmentByTagOtherwiseCreate(DocumentsDecreeFragment.class);
                 break;
             case R.id.navigation_settings:
                 selected = findFragmentByTagOtherwiseCreate(PlusFragment.class);
@@ -156,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_terms:
                 // User chose the "Settings" item, show the app settings UI...
                 Intent termsIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://docs.google.com/document/d/e/2PACX-1vTHUThxL3g4AsJO2aFALoYaAoBbvBRVzqSkQi9MT1_78pr_5jBtOzGmXVLSh0mXCjf0B8tkglApy1aJ/pub"));
+                        Uri.parse(CommonTools.TERMS));
                 startActivity(termsIntent);
                 break;
             case R.id.menu_language:
@@ -170,11 +205,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_get_full:
                 if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) != ConnectionResult.SERVICE_MISSING) { // Checks that Google Play is available
-                    Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full"));
+                    Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FULL_VERSION));
                     startActivity(fullVersionIntent);
                 } else {
                     Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW);
-                    fullVersionIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full"));
+                    fullVersionIntent.setData(Uri.parse(FULL_VERSION));
                     fullVersionIntent.setPackage("com.android.vending");
                     startActivity(fullVersionIntent);
                 }

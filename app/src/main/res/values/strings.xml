@@ -22,9 +22,18 @@
     <string name="question">Question</string>
     <string name="response">Réponse</string>
     <string name="submit">Soumettre</string>
+    <string name="cancel">Annuler</string>
     <string name="add_a_question">Rajouter une question</string>
+    <string name="rate_app">Partager votre avis !</string>
     <string name="facebook_page">Page Facebook</string>
     <string name="exit">Quitter</string>
     <string name="your_question">Votre Question</string>
+
+    <!-- Rating dialog -->
+    <string name="rating_title">Souhaitez-vous noter Naturalisation Française?</string>
+    <string name="rating_later">Peut-être plus tard :)</string>
+    <string name="rating_feedback">Vos retours</string>
+    <string name="rating_hint">Nous serions reconnaissants de nous dire où nous pouvons améliorer</string>
+    <string name="rating_no">Non, merci :)</string>
 
 </resources>

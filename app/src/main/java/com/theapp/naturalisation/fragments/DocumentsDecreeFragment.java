@@ -19,7 +19,7 @@ import com.theapp.naturalisation.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DocumentsFragment extends Fragment {
+public class DocumentsDecreeFragment extends Fragment {
 
     @BindView(R.id.checkBox1)
     CheckBox checkBox1;
@@ -64,9 +64,9 @@ public class DocumentsFragment extends Fragment {
     @BindView(R.id.linkToOriginalDocuments)
     TextView linkToOriginalDocuments;
 
-    private static final String TAG = "DocumentsFragment";
+    private static final String TAG = "DocumentsDecreeFragment";
 
-    public DocumentsFragment() {
+    public DocumentsDecreeFragment() {
         // Required empty public constructor
     }
 
@@ -78,7 +78,7 @@ public class DocumentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_documents, container, false);
+        View view = inflater.inflate(R.layout.fragment_documents_decree, container, false);
         ButterKnife.bind(this, view);
         initViews();
         setupListeners();
