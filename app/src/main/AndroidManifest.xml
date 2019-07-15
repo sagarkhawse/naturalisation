@@ -4,6 +4,7 @@
     package="com.theapp.naturalisation">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +27,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8438644666105561~4576089668" />
+            android:value="ca-app-pub-4315109878775682~3251144481" />
     </application>
 
 </manifest>

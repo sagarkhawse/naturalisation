@@ -74,7 +74,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
         loadAd(view);
 
         mInterstitialAd = new InterstitialAd(getContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-8438644666105561/7156175061");
+        mInterstitialAd.setAdUnitId("ca-app-pub-4315109878775682/2101714341");
 
         if (CommonTools.isDebug()) {
             mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());

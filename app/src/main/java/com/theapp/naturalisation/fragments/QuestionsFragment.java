@@ -49,7 +49,7 @@ public class QuestionsFragment extends Fragment {
     private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
     private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
 
-    private static final String AD_UNIT_ID = "ca-app-pub-8438644666105561/5174623958";
+    private static final String AD_UNIT_ID = "ca-app-pub-4315109878775682/2401097240";
 
     private List<Object> list = new ArrayList<>();
 
