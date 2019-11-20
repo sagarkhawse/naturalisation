@@ -36,4 +36,10 @@
     <string name="rating_hint">Nous serions reconnaissants de nous dire où nous pouvons améliorer</string>
     <string name="rating_no">Non, merci :)</string>
 
+    <!-- Categories -->
+    <string name="republic">République</string>
+    <string name="history">Histoire</string>
+    <string name="personal">Personnel</string>
+    <string name="general">Général</string>
+
 </resources>
