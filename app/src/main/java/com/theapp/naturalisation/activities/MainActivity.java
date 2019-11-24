@@ -20,6 +20,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.fragments.DocumentsDecreeFragment;
+import com.theapp.naturalisation.fragments.FaqsFragment;
 import com.theapp.naturalisation.fragments.PlusFragment;
 import com.theapp.naturalisation.fragments.QuestionsFragment;
 import com.theapp.naturalisation.helpers.CommonTools;
@@ -101,15 +102,16 @@ public class MainActivity extends AppCompatActivity {
         // try to get it
         Fragment selected;
         switch (navigationId) {
-            case R.id.navigation_questions:
-                selected = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
-                break;
             case R.id.navigation_documents:
                 selected = findFragmentByTagOtherwiseCreate(DocumentsDecreeFragment.class);
                 break;
             case R.id.navigation_settings:
                 selected = findFragmentByTagOtherwiseCreate(PlusFragment.class);
                 break;
+            case R.id.navigation_faqs:
+                selected = findFragmentByTagOtherwiseCreate(FaqsFragment.class);
+                break;
+            case R.id.navigation_questions:
             default:
                 selected = findFragmentByTagOtherwiseCreate(QuestionsFragment.class);
                 break;
@@ -128,9 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                 .getName())
                         .hide(fragment)
                         .commit();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
         }

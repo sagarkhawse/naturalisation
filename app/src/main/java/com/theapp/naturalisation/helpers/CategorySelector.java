@@ -1,5 +1,7 @@
 package com.theapp.naturalisation.helpers;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,10 @@ public class CategorySelector {
     }
 
     public static String getName(String label) {
-        return conversionMap.get(label);
+        if (StringUtils.isNotEmpty(conversionMap.get(label))) {
+            return conversionMap.get(label);
+        }
+
+        return "";
     }
 }

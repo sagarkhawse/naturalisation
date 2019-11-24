@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.item_category)
-    TextView itemCategory;
+    public TextView itemCategory;
     @BindView(R.id.item_question)
     public TextView itemQuestion;
     @BindView(R.id.item_response)
@@ -23,7 +23,6 @@ public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.button_response)
     public
     ImageButton mButtonResponse;
-
 
     private Context mContext;
 
@@ -43,6 +42,10 @@ public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
 
     public void setItemResponse(String itemResponse) {
         this.itemResponse.setText(itemResponse);
+    }
+
+    public void setItemCategoryNotVisible() {
+        itemCategory.setVisibility(View.GONE);
     }
 
 }
