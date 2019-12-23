@@ -12,10 +12,11 @@ import com.google.android.gms.ads.AdView;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.viewholders.AdItemViewHolder;
 import com.theapp.naturalisation.adapters.viewholders.QuestionsItemViewHolder;
-import com.theapp.naturalisation.fragments.QuestionsFragment;
 import com.theapp.naturalisation.helpers.CategorySelector;
 import com.theapp.naturalisation.helpers.CommonTools;
 import com.theapp.naturalisation.models.Item;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @Override
     public int getItemViewType(int position) {
-        return (position % QuestionsFragment.getItemsPerAd() == 0) ? BANNER_AD_VIEW_TYPE
+        return (position % CommonTools.getItemsPerAd() == 0) ? BANNER_AD_VIEW_TYPE
                 : MENU_ITEM_VIEW_TYPE;
     }
 
@@ -77,7 +78,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-
     /**
      * Replaces the content in the views that make up the menu item view and the
      * banner ad view. This method is invoked by the layout manager.
@@ -90,7 +90,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 QuestionsItemViewHolder itemHolder = (QuestionsItemViewHolder) holder;
                 Item menuItem = (Item) recyclerViewItems.get(position);
 
-                itemHolder.setItemCategory(CategorySelector.getName(menuItem.getCategory()));
+                if (StringUtils.isEmpty(CategorySelector.getName(menuItem.getCategory()))) {
+                    itemHolder.setItemCategoryNotVisible();
+                } else {
+                    itemHolder.setItemCategory(CategorySelector.getName(menuItem.getCategory()));
+                }
                 itemHolder.setItemQuestion(menuItem.getQuestion());
                 itemHolder.setItemResponse(CommonTools.formatResponse(menuItem.getResponse()));
 
@@ -130,7 +134,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 adCardView.addView(adView);
         }
     }
-
 
     // Clean all elements of the recycler
     public void clear() {

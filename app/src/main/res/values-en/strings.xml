@@ -35,4 +35,11 @@
     <string name="rating_hint">We appreciate telling us where we can improve</string>
     <string name="rating_no">No, thanks :)</string>
 
+    <!-- Categories -->
+    <string name="republic">Republic</string>
+    <string name="history">History</string>
+    <string name="personal">Personal</string>
+    <string name="general">General</string>
+    <string name="faqs">FAQs</string>
+
 </resources>

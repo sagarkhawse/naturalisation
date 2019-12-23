@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "940874773466-muq30u8n5l6m6ipbcisqpvsp4thmsbjp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theapp.naturalisation",
+            "certificate_hash": "8e79471c5b827226daf50b8cd77984e2059843ca"
+          }
+        },
+        {
           "client_id": "940874773466-rkdpilqa85ho4sbl879l65ftidcciq2g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -42,7 +50,7 @@
           ]
         }
       },
-      "admob_app_id": "ca-app-pub-8438644666105561~4576089668"
+      "admob_app_id": "ca-app-pub-4315109878775682~3251144481"
     },
     {
       "client_info": {
@@ -52,6 +60,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "940874773466-b0vm14apvujao68k37626j13q9pb3g2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theapp.naturalisation.full",
+            "certificate_hash": "8e79471c5b827226daf50b8cd77984e2059843ca"
+          }
+        },
         {
           "client_id": "940874773466-vu2gm1ahe9gvptt6hiftrsqj43fe59sq.apps.googleusercontent.com",
           "client_type": 1,

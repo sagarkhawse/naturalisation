@@ -16,7 +16,6 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -27,40 +26,31 @@ import com.theapp.naturalisation.helpers.DbHelper;
 import com.theapp.naturalisation.models.Item;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class QuestionsFragment extends Fragment {
+public class FaqsFragment extends Fragment {
 
-    @BindView(R.id.items_list)
+    @BindView(R.id.faqs_list)
     RecyclerView mItemsList;
-    @BindView(R.id.swipeContainer)
+    @BindView(R.id.swipeContainerFaqs)
     SwipeRefreshLayout swipeContainer;
-    @BindView(R.id.floatingActionButton)
-    FloatingActionButton floatingActionButton;
 
-    private static final String TAG = "QuestionsFragment";
+    private static final String TAG = "FaqsFragment";
 
-    // Remote Config keys
-    private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
-    private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
-
-    private static final String AD_UNIT_ID = "ca-app-pub-4315109878775682/2401097240";
+    private static final String AD_UNIT_ID = "ca-app-pub-4315109878775682/2257988710";
     private static final String TEST_AD_UNIT_ID = "ca-app-pub-4315109878775682/2257988710";
 
     private List<Object> list = new ArrayList<>();
 
     private RecyclerViewAdapter adapter;
 
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
-
     private static int itemsPerAd;
 
-    public QuestionsFragment() {
+    public FaqsFragment() {
         // Required empty public constructor
     }
 
@@ -71,20 +61,15 @@ public class QuestionsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_questions, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_faqs, container, false);
         ButterKnife.bind(this, fragmentView);
 
         mItemsList.setLayoutManager(new LinearLayoutManager(getContext()));
         mItemsList.setHasFixedSize(true);
 
-        swipeContainer.setOnRefreshListener(this::addItemsFromFirestore);
-        swipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
+        swipeContainer.setEnabled(false);
 
-        floatingActionButton.setOnClickListener(v -> mItemsList.smoothScrollToPosition(0));
-
-        mFirebaseRemoteConfig = CommonTools.setupFirebaseRemoteConfig();
-
-        fetchRemoteConfigAndAddItems();
+        addItemsFromFirestore();
 
         adapter = new RecyclerViewAdapter(getContext(), list);
         mItemsList.setAdapter(adapter);
@@ -92,25 +77,8 @@ public class QuestionsFragment extends Fragment {
         return fragmentView;
     }
 
-    private void fetchRemoteConfigAndAddItems() {
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
-                    if (task.isSuccessful()) {
-                        boolean updated = Objects.requireNonNull(task.getResult());
-                        Log.d(TAG, "Config params updated: " + updated);
-
-                        CommonTools.setItemsPerAd((int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY));
-                        CommonTools.setLiteMaxItems(mFirebaseRemoteConfig.getLong(MAX_ITEMS_LITE_VERSION_CONFIG_KEY));
-                    } else {
-                        Log.d(TAG, "Fetch config params failed !");
-                    }
-
-                    addItemsFromFirestore();
-                });
-    }
-
     private void addItemsFromFirestore() {
-        Query queryFirestore = DbHelper.getItemsCollection();
+        Query queryFirestore = DbHelper.getFaqsCollection();
 
         queryFirestore.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -127,14 +95,11 @@ public class QuestionsFragment extends Fragment {
                     list.add(document.toObject(Item.class));
                 }
                 try {
-                    Collections.shuffle(list);
                     addBannerAds();
                     loadBannerAds();
                 } catch (Exception e) {
                     Log.e(TAG, "Error adding banner ads to recycler view !", e);
                 }
-
-                swipeContainer.setRefreshing(false);
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
@@ -187,6 +152,7 @@ public class QuestionsFragment extends Fragment {
             }
         });
 
+        // Load the banner ad.
         adView.loadAd(new AdRequest.Builder().build());
     }
 
@@ -247,5 +213,4 @@ public class QuestionsFragment extends Fragment {
         }
         super.onDestroy();
     }
-
 }
