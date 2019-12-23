@@ -18,7 +18,6 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.RecyclerViewAdapter;
 import com.theapp.naturalisation.helpers.CommonTools;
@@ -26,6 +25,7 @@ import com.theapp.naturalisation.helpers.DbHelper;
 import com.theapp.naturalisation.models.Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,6 +95,7 @@ public class FaqsFragment extends Fragment {
                     list.add(document.toObject(Item.class));
                 }
                 try {
+                    Collections.shuffle(list);
                     addBannerAds();
                     loadBannerAds();
                 } catch (Exception e) {
