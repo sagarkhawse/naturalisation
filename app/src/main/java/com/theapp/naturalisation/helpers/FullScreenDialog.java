@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.models.Item;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +67,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.dialog_add_question, container, false);
         ButterKnife.bind(this, view);
@@ -73,7 +76,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
 
         loadAd(view);
 
-        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd = new InterstitialAd(requireContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-4315109878775682/2101714341");
 
         if (CommonTools.isDebug()) {
@@ -134,7 +137,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
         }
     }
 
@@ -168,11 +171,10 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
         if (v == mButtonPostQuestion) {
             Item item = new Item();
             item.setCategory(category);
-            item.setQuestion(mQuestion.getText().toString());
-            item.setResponse(mResponse.getText().toString());
+            item.setQuestion(Objects.requireNonNull(mQuestion.getText()).toString());
+            item.setResponse(Objects.requireNonNull(mResponse.getText()).toString());
 
             startPosting(item);
-//            mQuestion.getText().clear();
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
             } else {
@@ -185,27 +187,18 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
 
     private void startPosting(Item item) {
         if (item != null) {
-            collection.add(item).addOnSuccessListener(documentReference -> {
-                Log.d(TAG, "The new item added with ID: " + documentReference.getId());
-            }).addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+            collection.add(item)
+                    .addOnSuccessListener(documentReference -> Log.d(TAG, "The new item added with ID: " + documentReference.getId()))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
         }
     }
-
-//    private void openMainPage() {
-//        FragmentActivity activity = getActivity();
-//        if (!(activity instanceof MainActivity)) {
-//            return;
-//        }
-//        MainActivity homeActivity = (MainActivity) activity;
-//        homeActivity.showPage(R.id.navigation_questions);
-//    }
 
     private void loadAd(View view) {
         AdView mAdView;
         mAdView = view.findViewById(R.id.adView_add_question);
 
         if (CommonTools.isDebug()) {
-            mAdView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
+            mAdView.loadAd(new AdRequest.Builder().addTestDevice(CommonTools.DEVICE_ID).build());
         } else {
             mAdView.loadAd(new AdRequest.Builder().build());
         }
@@ -226,7 +219,7 @@ public class FullScreenDialog extends DialogFragment implements AdapterView.OnIt
         }
 
         public void afterTextChanged(Editable editable) {
-            if (mQuestion.getText().toString().length() == 0) {
+            if (Objects.requireNonNull(mQuestion.getText()).toString().length() == 0) {
                 mButtonPostQuestion.setEnabled(false);
             } else {
                 mButtonPostQuestion.setEnabled(true);

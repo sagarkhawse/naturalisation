@@ -15,14 +15,17 @@ public class CommonTools {
     public static final String LITE_VERSION = "https://play.google.com/store/apps/details?id=com.theapp.naturalisation";
     public static final String FULL_VERSION = "https://play.google.com/store/apps/details?id=com.theapp.naturalisation.full";
     public static final String TERMS = "https://docs.google.com/document/d/e/2PACX-1vTHUThxL3g4AsJO2aFALoYaAoBbvBRVzqSkQi9MT1_78pr_5jBtOzGmXVLSh0mXCjf0B8tkglApy1aJ/pub";
-    public static final String FACEBOOK_PAGE = "https://www.facebook.com/Naturalisation-Fran%C3%A7aise-1272280599597926/";
+    public static final String FACEBOOK_PAGE = "https://www.facebook.com/groups/frenchcitizenship/";
+    public static final String DEVICE_ID = "3D14E6058AE6036AEA01F03949D34D5B";
 
     // Remote Config keys
     private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
     private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
+    private static final String JO_TIME_TO_WAIT_CONFIG_KEY = "jo_time_to_wait";
 
     private static int itemsPerAd;
     private static long liteMaxItems;
+    private static long joTimeToWait;
 
     public static String formatResponse(String response) {
         return response.replaceAll(SEPARATOR, REPLACEMENT);
@@ -52,6 +55,7 @@ public class CommonTools {
 
         itemsPerAd = (int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY);
         liteMaxItems = mFirebaseRemoteConfig.getLong(MAX_ITEMS_LITE_VERSION_CONFIG_KEY);
+        joTimeToWait = mFirebaseRemoteConfig.getLong(JO_TIME_TO_WAIT_CONFIG_KEY);
 
         return mFirebaseRemoteConfig;
     }
@@ -64,11 +68,7 @@ public class CommonTools {
         return liteMaxItems;
     }
 
-    public static void setItemsPerAd(int itemsPerAd) {
-        CommonTools.itemsPerAd = itemsPerAd;
-    }
-
-    public static void setLiteMaxItems(long liteMaxItems) {
-        CommonTools.liteMaxItems = liteMaxItems;
+    static long getJoTimeToWait() {
+        return joTimeToWait;
     }
 }

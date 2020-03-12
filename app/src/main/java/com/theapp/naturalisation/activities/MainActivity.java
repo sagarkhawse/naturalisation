@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.fragments.DocumentsDecreeFragment;
 import com.theapp.naturalisation.fragments.FaqsFragment;
+import com.theapp.naturalisation.fragments.JoFragment;
 import com.theapp.naturalisation.fragments.PlusFragment;
 import com.theapp.naturalisation.fragments.QuestionsFragment;
 import com.theapp.naturalisation.helpers.CommonTools;
@@ -65,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(fragmentByTag, QuestionsFragment.class.getName());
         }
 
-        buildSmartRatingDilaog();
+        buildSmartRatingDialog();
     }
 
-    private void buildSmartRatingDilaog() {
+    private void buildSmartRatingDialog() {
         String url = LITE_VERSION;
 
         if (CommonTools.isFullVersion()) {
@@ -107,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.navigation_settings:
                 selected = findFragmentByTagOtherwiseCreate(PlusFragment.class);
+                break;
+            case R.id.navigation_jo:
+                selected = findFragmentByTagOtherwiseCreate(JoFragment.class);
                 break;
             case R.id.navigation_faqs:
                 selected = findFragmentByTagOtherwiseCreate(FaqsFragment.class);

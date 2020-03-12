@@ -36,6 +36,7 @@
         android:elevation="4dp"
         android:focusable="true"
         android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

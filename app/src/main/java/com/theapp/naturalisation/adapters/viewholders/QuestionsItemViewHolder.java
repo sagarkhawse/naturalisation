@@ -1,6 +1,5 @@
 package com.theapp.naturalisation.adapters.viewholders;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,14 +20,10 @@ public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.item_response)
     public TextView itemResponse;
     @BindView(R.id.button_response)
-    public
-    ImageButton mButtonResponse;
+    public ImageButton mButtonResponse;
 
-    private Context mContext;
-
-    public QuestionsItemViewHolder(View itemView, Context context) {
+    public QuestionsItemViewHolder(View itemView) {
         super(itemView);
-        this.mContext = context;
         ButterKnife.bind(this, itemView);
     }
 

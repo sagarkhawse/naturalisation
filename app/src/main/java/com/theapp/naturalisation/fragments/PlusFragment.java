@@ -29,8 +29,8 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
     MaterialButton mButtonAddQuestion;
     @BindView(R.id.button_rating)
     MaterialButton mButtonRating;
-    @BindView(R.id.button_facebook)
-    MaterialButton mButtonFacebook;
+    @BindView(R.id.button_pro)
+    MaterialButton mButtonPro;
     @BindView(R.id.button_exit)
     MaterialButton mButtonExit;
 
@@ -51,10 +51,14 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_plus, container, false);
         ButterKnife.bind(this, view);
 
+        if (CommonTools.isFullVersion()) {
+            mButtonPro.setVisibility(View.GONE);
+        }
+
         mButtonAddQuestion.setOnClickListener(this);
         mButtonRating.setOnClickListener(this);
         mButtonExit.setOnClickListener(this);
-        mButtonFacebook.setOnClickListener(this);
+        mButtonPro.setOnClickListener(this);
 
         return view;
     }
@@ -64,7 +68,7 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
         if (v == mButtonAddQuestion) {
             if (CommonTools.isFullVersion()) {
                 FullScreenDialog dialog = new FullScreenDialog();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = requireFragmentManager().beginTransaction();
                 dialog.show(ft, "DIALOG");
             } else {
                 Toast.makeText(getContext(), getResources().getString(R.string.toast_get_pro_version), Toast.LENGTH_LONG).show();
@@ -76,24 +80,27 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
             if (CommonTools.isFullVersion()) {
                 url = CommonTools.FULL_VERSION;
             }
-            if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext()) != ConnectionResult.SERVICE_MISSING) { // Checks that Google Play is available
-                Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(fullVersionIntent);
-            } else {
-                Intent fullVersionIntent = new Intent(Intent.ACTION_VIEW);
-                fullVersionIntent.setData(Uri.parse(url));
-                fullVersionIntent.setPackage("com.android.vending");
-                startActivity(fullVersionIntent);
-            }
+            goToGooglePlay(url);
         }
-        if (v == mButtonFacebook) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-            browserIntent.setData(Uri.parse(CommonTools.FACEBOOK_PAGE));
-            startActivity(browserIntent);
+        if (v == mButtonPro) {
+            goToGooglePlay(CommonTools.FULL_VERSION);
         }
         if (v == mButtonExit) {
-            getActivity().finish();
+            requireActivity().finish();
             System.exit(0);
+        }
+    }
+
+    private void goToGooglePlay(String url) {
+        // Checks that Google Play is available
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext()) != ConnectionResult.SERVICE_MISSING) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            intent.setPackage("com.android.vending");
+            startActivity(intent);
         }
     }
 }

@@ -25,13 +25,13 @@
     <string name="cancel">Annuler</string>
     <string name="add_a_question">Rajouter une question</string>
     <string name="rate_app">Partager votre avis !</string>
-    <string name="facebook_page">Page Facebook</string>
+    <string name="turn_pro">Devenez Pro !</string>
     <string name="exit">Quitter</string>
     <string name="your_question">Votre Question</string>
 
     <!-- Rating dialog -->
     <string name="rating_title">Souhaitez-vous noter Naturalisation Française?</string>
-    <string name="rating_later">Peut-être plus tard :)</string>
+    <string name="rating_later">Plus tard :)</string>
     <string name="rating_feedback">Vos retours</string>
     <string name="rating_hint">Nous serions reconnaissants de nous dire où nous pouvons améliorer</string>
     <string name="rating_no">Non, merci :)</string>
@@ -42,5 +42,18 @@
     <string name="personal">Personnel</string>
     <string name="general">Général</string>
     <string name="faqs">FAQs</string>
+    <string name="menu_jo">JO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="family_name">Nom</string>
+    <string name="first_name">Prénom</string>
+    <string name="middle_name">Surnom (Optionnel)</string>
+    <string name="result">Result</string>
+    <string name="foundText">Vous apparaissez dans le JO du </string>
+    <string name="notfoundText">malheureusement vous n\'êtes toujours pas naturalisé ...\n Le jour J va bientôt arriver !</string>
+    <string name="congratulations">Félicitations</string>
+    <string name="notyet">Patience …</string>
+    <string name="toast_get_pro_version_jo">Passez à la version Pro pour pouvoir vérifier votre JO !</string>
+
 
 </resources>

@@ -67,14 +67,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case MENU_ITEM_VIEW_TYPE:
                 View menuItemLayoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
                         R.layout.card_item, viewGroup, false);
-                return new QuestionsItemViewHolder(menuItemLayoutView, context);
+                return new QuestionsItemViewHolder(menuItemLayoutView);
             case BANNER_AD_VIEW_TYPE:
                 // fall through
             default:
                 View bannerLayoutView = LayoutInflater.from(
                         viewGroup.getContext()).inflate(R.layout.card_ad,
                         viewGroup, false);
-                return new AdItemViewHolder(bannerLayoutView, context);
+                return new AdItemViewHolder(bannerLayoutView);
         }
     }
 

@@ -24,7 +24,7 @@
     <string name="cancel">Cancel</string>
     <string name="add_a_question">Add a Question</string>
     <string name="rate_app">Rate the App !</string>
-    <string name="facebook_page">Facebook Page</string>
+    <string name="turn_pro">Get Your Pro App !</string>
     <string name="exit">Exit</string>
     <string name="your_question">Your Question</string>
 
@@ -41,5 +41,15 @@
     <string name="personal">Personal</string>
     <string name="general">General</string>
     <string name="faqs">FAQs</string>
+    <string name="menu_jo">JO</string>
+    <string name="family_name">Family Name</string>
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name (Optional)</string>
+    <string name="result">Result</string>
+    <string name="foundText">You appear in the JO of </string>
+    <string name="notfoundText">unfortunately you are still not naturalised yet ! But don\'t worry, it\'s coming soon !</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="notyet">Not yet …</string>
+    <string name="toast_get_pro_version_jo">Upgrade to the Pro version to check your JO !</string>
 
 </resources>

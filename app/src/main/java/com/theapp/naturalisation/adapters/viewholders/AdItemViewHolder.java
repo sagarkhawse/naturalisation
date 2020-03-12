@@ -1,6 +1,5 @@
 package com.theapp.naturalisation.adapters.viewholders;
 
-import android.content.Context;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +13,10 @@ import butterknife.ButterKnife;
 public class AdItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.card_ad)
-    MaterialCardView cardAdView;
+    protected MaterialCardView cardAdView;
 
-
-    private Context mContext;
-
-    public AdItemViewHolder(View itemView, Context context) {
+    public AdItemViewHolder(View itemView) {
         super(itemView);
-        this.mContext = context;
         ButterKnife.bind(this, itemView);
     }
 

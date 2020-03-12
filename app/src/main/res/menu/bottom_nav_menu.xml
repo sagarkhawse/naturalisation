@@ -12,6 +12,11 @@
         android:title="@string/menu_documents" />
 
     <item
+        android:id="@+id/navigation_jo"
+        android:icon="@drawable/ic_whatshot_black_24dp"
+        android:title="@string/menu_jo" />
+
+    <item
         android:id="@+id/navigation_faqs"
         android:icon="@drawable/ic_question_answer_black_24dp"
         android:title="@string/faqs" />

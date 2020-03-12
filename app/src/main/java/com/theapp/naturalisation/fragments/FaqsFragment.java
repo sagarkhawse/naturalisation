@@ -154,7 +154,11 @@ public class FaqsFragment extends Fragment {
         });
 
         // Load the banner ad.
-        adView.loadAd(new AdRequest.Builder().build());
+        if (CommonTools.isDebug()) {
+            adView.loadAd(new AdRequest.Builder().addTestDevice(CommonTools.DEVICE_ID).build());
+        } else {
+            adView.loadAd(new AdRequest.Builder().build());
+        }
     }
 
     private void addBannerAds() {

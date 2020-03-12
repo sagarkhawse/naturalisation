@@ -84,29 +84,12 @@ public class QuestionsFragment extends Fragment {
 
         mFirebaseRemoteConfig = CommonTools.setupFirebaseRemoteConfig();
 
-        fetchRemoteConfigAndAddItems();
+        addItemsFromFirestore();
 
         adapter = new RecyclerViewAdapter(getContext(), list);
         mItemsList.setAdapter(adapter);
 
         return fragmentView;
-    }
-
-    private void fetchRemoteConfigAndAddItems() {
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
-                    if (task.isSuccessful()) {
-                        boolean updated = Objects.requireNonNull(task.getResult());
-                        Log.d(TAG, "Config params updated: " + updated);
-
-                        CommonTools.setItemsPerAd((int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY));
-                        CommonTools.setLiteMaxItems(mFirebaseRemoteConfig.getLong(MAX_ITEMS_LITE_VERSION_CONFIG_KEY));
-                    } else {
-                        Log.d(TAG, "Fetch config params failed !");
-                    }
-
-                    addItemsFromFirestore();
-                });
     }
 
     private void addItemsFromFirestore() {
@@ -187,7 +170,11 @@ public class QuestionsFragment extends Fragment {
             }
         });
 
-        adView.loadAd(new AdRequest.Builder().build());
+        if (CommonTools.isDebug()) {
+            adView.loadAd(new AdRequest.Builder().addTestDevice(CommonTools.DEVICE_ID).build());
+        } else {
+            adView.loadAd(new AdRequest.Builder().build());
+        }
     }
 
     private void addBannerAds() {
