@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdView;
+import com.bumptech.glide.Glide;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.viewholders.AdItemViewHolder;
 import com.theapp.naturalisation.adapters.viewholders.QuestionsItemViewHolder;
@@ -52,8 +52,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @Override
     public int getItemViewType(int position) {
-        return (position % CommonTools.getItemsPerAd() == 0) ? BANNER_AD_VIEW_TYPE
-                : MENU_ITEM_VIEW_TYPE;
+        if (CommonTools.isLiteVersion()) {
+            return (position % CommonTools.getItemsPerAd() == 0) ? BANNER_AD_VIEW_TYPE
+                    : MENU_ITEM_VIEW_TYPE;
+        } else {
+            return MENU_ITEM_VIEW_TYPE;
+        }
     }
 
     /**
@@ -62,7 +66,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        if (CommonTools.isLiteVersion()) {
+            return ViewHolderWithAds(viewGroup, viewType);
+        } else {
+            return ViewHolderWithoutAds(viewGroup);
+        }
+    }
+
+    private RecyclerView.ViewHolder ViewHolderWithAds(ViewGroup viewGroup, int viewType) {
         switch (viewType) {
             case MENU_ITEM_VIEW_TYPE:
                 View menuItemLayoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
@@ -76,6 +88,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         viewGroup, false);
                 return new AdItemViewHolder(bannerLayoutView);
         }
+    }
+
+    private RecyclerView.ViewHolder ViewHolderWithoutAds(ViewGroup viewGroup) {
+        View menuItemLayoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
+                R.layout.card_item, viewGroup, false);
+        return new QuestionsItemViewHolder(menuItemLayoutView);
     }
 
     /**
@@ -98,15 +116,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 itemHolder.setItemQuestion(menuItem.getQuestion());
                 itemHolder.setItemResponse(CommonTools.formatResponse(menuItem.getResponse()));
 
-                itemHolder.itemQuestion.setOnClickListener(v -> {
-                    mIsExpanded = !mIsExpanded;
-                    itemHolder.mButtonResponse.setImageResource(!mIsExpanded ? R.drawable.ic_keyboard_arrow_down_black_24dp : R.drawable.ic_keyboard_arrow_up_black_24dp);
-                    itemHolder.itemResponse.setVisibility(mIsExpanded ? View.VISIBLE : View.GONE);
-                });
-
                 itemHolder.itemResponse.setVisibility(mIsExpanded ? View.VISIBLE : View.GONE);
                 itemHolder.itemView.setActivated(mIsExpanded);
-                itemHolder.mButtonResponse.setOnClickListener(v -> {
+
+                itemHolder.itemCard.setOnClickListener(v -> {
                     mIsExpanded = !mIsExpanded;
                     itemHolder.mButtonResponse.setImageResource(!mIsExpanded ? R.drawable.ic_keyboard_arrow_down_black_24dp : R.drawable.ic_keyboard_arrow_up_black_24dp);
                     itemHolder.itemResponse.setVisibility(mIsExpanded ? View.VISIBLE : View.GONE);
@@ -115,23 +128,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case BANNER_AD_VIEW_TYPE:
                 // fall through
             default:
-                AdItemViewHolder bannerHolder = (AdItemViewHolder) holder;
-                AdView adView = (AdView) recyclerViewItems.get(position);
-                ViewGroup adCardView = (ViewGroup) bannerHolder.itemView;
-                // The AdViewHolder recycled by the RecyclerView may be a different
-                // instance than the one used previously for this position. Clear the
-                // AdViewHolder of any subviews in case it has a different
-                // AdView associated with it, and make sure the AdView for this position doesn't
-                // already have a parent of a different recycled AdViewHolder.
-                if (adCardView.getChildCount() > 0) {
-                    adCardView.removeAllViews();
-                }
-                if (adView.getParent() != null) {
-                    ((ViewGroup) adView.getParent()).removeView(adView);
-                }
+//                AdItemViewHolder bannerHolder = (AdItemViewHolder) holder;
+//                AdView adView = (AdView) recyclerViewItems.get(position);
+//                ViewGroup adCardView = (ViewGroup) bannerHolder.itemView;
+//                // The AdViewHolder recycled by the RecyclerView may be a different
+//                // instance than the one used previously for this position. Clear the
+//                // AdViewHolder of any subviews in case it has a different
+//                // AdView associated with it, and make sure the AdView for this position doesn't
+//                // already have a parent of a different recycled AdViewHolder.
+//                if (adCardView.getChildCount() > 0) {
+//                    adCardView.removeAllViews();
+//                }
+//                if (adView.getParent() != null) {
+//                    ((ViewGroup) adView.getParent()).removeView(adView);
+//                }
+//
+//                // Add the banner ad to the ad view.
+//                adCardView.addView(adView);
 
-                // Add the banner ad to the ad view.
-                adCardView.addView(adView);
+                AdItemViewHolder bannerHolder = (AdItemViewHolder) holder;
+//                Glide.with(context).load(R.drawable.fig).into(bannerHolder.adImage);
         }
     }
 

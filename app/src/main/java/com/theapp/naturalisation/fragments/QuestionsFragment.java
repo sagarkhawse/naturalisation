@@ -19,7 +19,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.theapp.naturalisation.R;
 import com.theapp.naturalisation.adapters.RecyclerViewAdapter;
 import com.theapp.naturalisation.helpers.CommonTools;
@@ -45,10 +44,6 @@ public class QuestionsFragment extends Fragment {
 
     private static final String TAG = "QuestionsFragment";
 
-    // Remote Config keys
-    private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
-    private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
-
     private static final String AD_UNIT_ID = "ca-app-pub-4315109878775682/2401097240";
     private static final String TEST_AD_UNIT_ID = "ca-app-pub-4315109878775682/2257988710";
 
@@ -56,9 +51,9 @@ public class QuestionsFragment extends Fragment {
 
     private RecyclerViewAdapter adapter;
 
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
-
     private static int itemsPerAd;
+
+    private static final int REQUEST = 112;
 
     public QuestionsFragment() {
         // Required empty public constructor
@@ -82,7 +77,7 @@ public class QuestionsFragment extends Fragment {
 
         floatingActionButton.setOnClickListener(v -> mItemsList.smoothScrollToPosition(0));
 
-        mFirebaseRemoteConfig = CommonTools.setupFirebaseRemoteConfig();
+        CommonTools.setupFirebaseRemoteConfig();
 
         addItemsFromFirestore();
 
@@ -109,10 +104,30 @@ public class QuestionsFragment extends Fragment {
                     }
                     list.add(document.toObject(Item.class));
                 }
+
+//                try {
+//                    if (Build.VERSION.SDK_INT >= 23) {
+//                        String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                        if (!hasPermissions(requireContext(), PERMISSIONS)) {
+//                            ActivityCompat.requestPermissions(requireActivity(), PERMISSIONS, REQUEST);
+//                        } else {
+//                            //do here
+//                        }
+//                    } else {
+//                        //do here
+//                    }
+//
+//                    DataExtractor.saveDataToFile(list);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
                 try {
                     Collections.shuffle(list);
-                    addBannerAds();
-                    loadBannerAds();
+//                    if (CommonTools.isLiteVersion()) {
+//                        addBannerAds();
+//                        loadBannerAds();
+//                    }
                 } catch (Exception e) {
                     Log.e(TAG, "Error adding banner ads to recycler view !", e);
                 }
@@ -123,6 +138,31 @@ public class QuestionsFragment extends Fragment {
             }
         });
     }
+
+//    private static boolean hasPermissions(Context context, String... permissions) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+//            for (String permission : permissions) {
+//                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case REQUEST: {
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //do here
+//                } else {
+//                    Toast.makeText(requireContext(), "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Sets up and loads the banner ads.
@@ -204,34 +244,34 @@ public class QuestionsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.resume();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.resume();
+//            }
+//        }
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.pause();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.pause();
+//            }
+//        }
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.destroy();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.destroy();
+//            }
+//        }
         super.onDestroy();
     }
 

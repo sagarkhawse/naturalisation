@@ -22,6 +22,7 @@ public class CommonTools {
     private static final String MAX_ITEMS_LITE_VERSION_CONFIG_KEY = "lite_max_items";
     private static final String ITEMS_PER_AD_CONFIG_KEY = "items_per_ad";
     private static final String JO_TIME_TO_WAIT_CONFIG_KEY = "jo_time_to_wait";
+    private static final int CONFIG_FETCH_INTERVAL_IN_SECONDS = 3600;
 
     private static int itemsPerAd;
     private static long liteMaxItems;
@@ -43,21 +44,20 @@ public class CommonTools {
         return BuildConfig.BUILD_TYPE.equals(DEBUG);
     }
 
-    public static FirebaseRemoteConfig setupFirebaseRemoteConfig() {
+    public static void setupFirebaseRemoteConfig() {
         FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setFetchTimeoutInSeconds(2)
-                .setMinimumFetchIntervalInSeconds(3600)
+                .setMinimumFetchIntervalInSeconds(CONFIG_FETCH_INTERVAL_IN_SECONDS)
                 .build();
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
 
-        itemsPerAd = (int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY);
+//        itemsPerAd = (int) mFirebaseRemoteConfig.getLong(ITEMS_PER_AD_CONFIG_KEY);
+        itemsPerAd = 20;
         liteMaxItems = mFirebaseRemoteConfig.getLong(MAX_ITEMS_LITE_VERSION_CONFIG_KEY);
         joTimeToWait = mFirebaseRemoteConfig.getLong(JO_TIME_TO_WAIT_CONFIG_KEY);
-
-        return mFirebaseRemoteConfig;
     }
 
     public static int getItemsPerAd() {

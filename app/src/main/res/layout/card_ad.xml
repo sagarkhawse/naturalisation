@@ -1,5 +1,6 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_ad"
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
@@ -13,5 +14,12 @@
     app:cardElevation="2dp"
     app:contentPaddingBottom="10dp"
     app:contentPaddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/ad_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Ad for the Pro version"
+        tools:ignore="HardcodedText" />
 
 </com.google.android.material.card.MaterialCardView>

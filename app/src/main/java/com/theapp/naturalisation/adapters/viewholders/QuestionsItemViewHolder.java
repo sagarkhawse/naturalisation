@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.theapp.naturalisation.R;
 
 import butterknife.BindView;
@@ -13,6 +14,8 @@ import butterknife.ButterKnife;
 
 public class QuestionsItemViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.card_item)
+    public MaterialCardView itemCard;
     @BindView(R.id.item_category)
     public TextView itemCategory;
     @BindView(R.id.item_question)

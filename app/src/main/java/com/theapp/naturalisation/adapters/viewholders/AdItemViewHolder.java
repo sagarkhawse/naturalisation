@@ -1,6 +1,7 @@
 package com.theapp.naturalisation.adapters.viewholders;
 
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ public class AdItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.card_ad)
     protected MaterialCardView cardAdView;
+    @BindView(R.id.ad_image)
+    public ImageView adImage;
 
     public AdItemViewHolder(View itemView) {
         super(itemView);

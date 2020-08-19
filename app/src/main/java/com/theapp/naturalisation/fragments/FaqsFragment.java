@@ -96,8 +96,8 @@ public class FaqsFragment extends Fragment {
                 }
                 try {
                     Collections.shuffle(list);
-                    addBannerAds();
-                    loadBannerAds();
+//                    addBannerAds();
+//                    loadBannerAds();
                 } catch (Exception e) {
                     Log.e(TAG, "Error adding banner ads to recycler view !", e);
                 }
@@ -188,34 +188,34 @@ public class FaqsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.resume();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.resume();
+//            }
+//        }
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.pause();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.pause();
+//            }
+//        }
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        for (Object item : list) {
-            if (item instanceof AdView) {
-                AdView adView = (AdView) item;
-                adView.destroy();
-            }
-        }
+//        for (Object item : list) {
+//            if (item instanceof AdView) {
+//                AdView adView = (AdView) item;
+//                adView.destroy();
+//            }
+//        }
         super.onDestroy();
     }
 }
