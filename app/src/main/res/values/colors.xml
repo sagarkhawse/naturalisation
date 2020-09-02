@@ -5,4 +5,14 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGreen">#33691e</color>
+
+
+
+    <!--    01-09-2020-->
+    <color name="colorLoginPage1">#915ce5</color>
+    <color name="colorLoginPage2">#3f8fef</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlueDark">#4f7ec0</color>
+
+
 </resources>

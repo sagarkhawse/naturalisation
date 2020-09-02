@@ -4,6 +4,7 @@ package com.theapp.naturalisation.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.button.MaterialButton;
@@ -23,7 +26,7 @@ import com.theapp.naturalisation.helpers.FullScreenDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PlusFragment extends Fragment implements View.OnClickListener {
+public class PlusFragment extends Fragment implements View.OnClickListener , BillingProcessor.IBillingHandler{
 
     @BindView(R.id.button_add_question)
     MaterialButton mButtonAddQuestion;
@@ -35,6 +38,7 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
     MaterialButton mButtonExit;
 
     private static final String TAG = "PlusFragment";
+    BillingProcessor bp;
 
     public PlusFragment() {
         // Required empty public constructor
@@ -50,10 +54,11 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plus, container, false);
         ButterKnife.bind(this, view);
-
-        if (CommonTools.isFullVersion()) {
-            mButtonPro.setVisibility(View.GONE);
-        }
+        bp = new BillingProcessor(getContext(), null, this);
+        bp.initialize();
+//        if (CommonTools.isFullVersion()) {
+//            mButtonPro.setVisibility(View.GONE);
+//        }
 
         mButtonAddQuestion.setOnClickListener(this);
         mButtonRating.setOnClickListener(this);
@@ -83,7 +88,9 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
             goToGooglePlay(url);
         }
         if (v == mButtonPro) {
-            goToGooglePlay(CommonTools.FULL_VERSION);
+//            goToGooglePlay(CommonTools.FULL_VERSION);
+            bp.purchase(getActivity(), "YOUR PRODUCT ID FROM GOOGLE PLAY CONSOLE HERE");
+//            bp.subscribe(YOUR_ACTIVITY, "YOUR SUBSCRIPTION ID FROM GOOGLE PLAY CONSOLE HERE");
         }
         if (v == mButtonExit) {
             requireActivity().finish();
@@ -102,5 +109,51 @@ public class PlusFragment extends Fragment implements View.OnClickListener {
             intent.setPackage("com.android.vending");
             startActivity(intent);
         }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //In app billing
+    @Override
+    public void onProductPurchased(String productId, TransactionDetails details) {
+        Log.d(TAG, "onProductPurchased: product id   "+productId);
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+        Log.d(TAG, "onPurchaseHistoryRestored: ");
+    }
+
+    @Override
+    public void onBillingError(int errorCode, Throwable error) {
+        Log.d(TAG, "onBillingError: "+error.getMessage());
+    }
+
+    @Override
+    public void onBillingInitialized() {
+        Log.d(TAG, "onBillingInitialized: ");
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
+
+    @Override
+    public void onDestroy() {
+        if (bp != null) {
+            bp.release();
+        }
+        super.onDestroy();
     }
 }

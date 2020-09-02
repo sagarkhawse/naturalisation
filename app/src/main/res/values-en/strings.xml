@@ -52,4 +52,9 @@
     <string name="notyet">Not yet …</string>
     <string name="toast_get_pro_version_jo">Upgrade to the Pro version to check your JO !</string>
 
+    <!--    01-09-2020-->
+    <string name="title_sign_up" translatable="false">Sign in to start learning</string>
+    <string name="title_register_facebook">Login via Facebook</string>
+    <string name="title_register_google">Login via Google</string>
+
 </resources>
