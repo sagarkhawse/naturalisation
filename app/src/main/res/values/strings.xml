@@ -56,11 +56,11 @@
     <string name="toast_get_pro_version_jo">Passez à la version Pro pour pouvoir vérifier votre JO !</string>
 
 
-
     <!--    01-09-2020-->
     <string name="title_sign_up" translatable="false">Sign in to start learning</string>
     <string name="title_register_facebook">Login via Facebook</string>
     <string name="title_register_google">Login via Google</string>
-
+    <string name="facebook_app_id" translatable="false">2540574699568513</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2540574699568513</string>
 
 </resources>

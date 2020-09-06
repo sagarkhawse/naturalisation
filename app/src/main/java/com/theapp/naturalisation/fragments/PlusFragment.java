@@ -54,8 +54,9 @@ public class PlusFragment extends Fragment implements View.OnClickListener , Bil
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plus, container, false);
         ButterKnife.bind(this, view);
-        bp = new BillingProcessor(getContext(), null, this);
+        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp1fWXf7V1ipSKqkqd07Ep0m0wOH5CEgEHRS3Ha35beLctvUSAPTO1hBq6sxZ31P9eIBDdyVF40uzbcCY4bPe9BYgh9sKPoL3O653bSB4+NEs3y5bth6hqG0nxpQqOdg/5MsuKlhiTj0UTQPb14oomU3hELUpjccS82fW6c/BvCRjRf5dxYnKAjDkKpEwcG4TnCPxPdfjP+tsx8a0GHmEnLlhRrTQUlPhRV+wi6k5zyoXnx99eaxCJCpaaEwj6zxoZ2Fbjpo8sfmaP3jFKGNxTwxyBr84s+OmMFaqQ1IujLIVutqlhKkzPW7ck5vbks+kXBX8YydookukC5l2WNca7wIDAQAB", this);
         bp.initialize();
+
 //        if (CommonTools.isFullVersion()) {
 //            mButtonPro.setVisibility(View.GONE);
 //        }
@@ -89,8 +90,8 @@ public class PlusFragment extends Fragment implements View.OnClickListener , Bil
         }
         if (v == mButtonPro) {
 //            goToGooglePlay(CommonTools.FULL_VERSION);
-            bp.purchase(getActivity(), "YOUR PRODUCT ID FROM GOOGLE PLAY CONSOLE HERE");
-//            bp.subscribe(YOUR_ACTIVITY, "YOUR SUBSCRIPTION ID FROM GOOGLE PLAY CONSOLE HERE");
+//            bp.purchase(getActivity(), "simplyfrench.pro.subscription.monthly");
+            bp.subscribe(getActivity(), "simplyfrench.pro.subscription.monthly");
         }
         if (v == mButtonExit) {
             requireActivity().finish();
@@ -139,7 +140,9 @@ public class PlusFragment extends Fragment implements View.OnClickListener , Bil
 
     @Override
     public void onBillingInitialized() {
-        Log.d(TAG, "onBillingInitialized: ");
+        Log.d(TAG, "onBillingInitialized: "
+        );
+        bp.purchase(getActivity(), "test");
     }
 
 //    @Override
