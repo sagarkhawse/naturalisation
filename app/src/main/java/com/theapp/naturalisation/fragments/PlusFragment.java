@@ -117,11 +117,6 @@ public class PlusFragment extends Fragment implements View.OnClickListener , Bil
 
 
 
-
-
-
-
-
     //In app billing
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {

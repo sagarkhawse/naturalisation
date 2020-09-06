@@ -82,12 +82,7 @@ public class StripeActivity extends AppCompatActivity {
 
         // Create a PaymentIntent by calling the server's endpoint.
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-//         json = "{"
-//                + "\"currency\":\"usd\","
-//                + "\"items\":["
-//                + "{\"id\":\"photo_subscription\",\"amount\":"+amount+"}"
-//                + "]"
-//                + "}";
+
         RequestBody body = RequestBody.create(json, mediaType);
         Request request = new Request.Builder()
                 .url(BACKEND_URL + "create-payment-intent")
