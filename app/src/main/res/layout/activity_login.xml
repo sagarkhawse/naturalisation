@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.theapp.naturalisation.activities.LoginActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_gradient_purple"
+        android:tag="layout/fragment_sign_up_0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_20"
+                android:id="@+id/txt_title_sign_up"
+                style="@style/StyleTxtMuliBold.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_10"
+                android:gravity="center"
+                android:text="@string/title_sign_up"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/font_20" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/dimen_10"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/login" />
+
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_15"
+                app:cardElevation="@dimen/dimen_03">
+
+                <ProgressBar
+                    android:id="@+id/progress_google"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:layout_gravity="center"
+                    android:layout_height="@dimen/dimen_30"
+                    android:indeterminateTint="@color/colorWhite"
+                    android:visibility="gone" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linear_sign_up_google"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_white_corner"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_12"
+                    android:tag="binding_2">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@drawable/ic_google" />
+
+                    <TextView
+                        style="@style/StyleTxtMuliBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_30"
+                        android:layout_weight="6"
+                        android:text="@string/title_register_google"
+                        android:textAllCaps="true"
+                        android:textColor="#e14f2f"
+                        android:textSize="@dimen/font_14" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_25"
+                app:cardElevation="@dimen/dimen_03">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linear_sign_up_facebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_white_corner"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_12"
+                    android:tag="binding_3">
+
+                    <com.facebook.login.widget.LoginButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/login_button"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@drawable/ic_facebook" />
+
+                    <TextView
+                        style="@style/StyleTxtMuliBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_30"
+                        android:layout_weight="6"
+                        android:text="@string/title_register_facebook"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorBlueDark"
+                        android:textSize="@dimen/font_14" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
+</FrameLayout>
