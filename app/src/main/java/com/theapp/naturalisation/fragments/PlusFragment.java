@@ -145,12 +145,7 @@ public class PlusFragment extends Fragment implements View.OnClickListener , Bil
         bp.purchase(getActivity(), "test");
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
+
 
     @Override
     public void onDestroy() {
